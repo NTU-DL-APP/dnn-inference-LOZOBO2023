@@ -1,6 +1,6 @@
 import numpy as np
 import json
-from model_test import test_softmax
+
 # === Activation functions ===
 def relu(x):
     """Implement the Rectified Linear Unit (ReLU) activation function."""
@@ -56,7 +56,3 @@ def nn_forward_h5(model_arch, weights, data):
 # You are free to replace nn_forward_h5() with your own implementation 
 def nn_inference(model_arch, weights, data):
     return nn_forward_h5(model_arch, weights, data)
-
-if __name__ == "__main__":
-    test_softmax()
-    #print("Test passed successfully!")
