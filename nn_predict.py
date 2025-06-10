@@ -8,7 +8,7 @@ def relu(x):
 
 def softmax(x):
     """Numerically stable softmax."""
-    x = np.asarray(x)
+    x = np.asarray(x, dtype=np.float64)  # 強制轉為 float64 提高精度
     if x.ndim == 1:
         x = x - np.max(x)
         e_x = np.exp(x)
@@ -17,6 +17,7 @@ def softmax(x):
         x = x - np.max(x, axis=1, keepdims=True)
         e_x = np.exp(x)
         return e_x / np.sum(e_x, axis=1, keepdims=True)
+
 
 
 # === Flatten ===
