@@ -1,24 +1,23 @@
 import numpy as np
 import json
-
+from model_test import test_softmax
 # === Activation functions ===
 def relu(x):
     """Implement the Rectified Linear Unit (ReLU) activation function."""
     return np.maximum(0, x)
 
 def softmax(x):
-    """Numerically stable softmax with epsilon to avoid division by zero."""
-    x = np.asarray(x, dtype=np.float64)
-    eps = 1e-8  # small constant to prevent division by zero
-
+    """Numerically stable softmax."""
+    x = np.asarray(x, dtype=np.float64)  # 強制轉為 float64 提高精度
     if x.ndim == 1:
         x = x - np.max(x)
         e_x = np.exp(x)
-        return e_x / (np.sum(e_x) + eps)
+        return e_x / np.sum(e_x)
     else:
         x = x - np.max(x, axis=1, keepdims=True)
         e_x = np.exp(x)
-        return e_x / (np.sum(e_x, axis=1, keepdims=True) + eps)
+        return e_x / np.sum(e_x, axis=1, keepdims=True)
+
 
 
 
@@ -57,3 +56,7 @@ def nn_forward_h5(model_arch, weights, data):
 # You are free to replace nn_forward_h5() with your own implementation 
 def nn_inference(model_arch, weights, data):
     return nn_forward_h5(model_arch, weights, data)
+
+if __name__ == "__main__":
+    test_softmax()
+    print("Test passed successfully!")
