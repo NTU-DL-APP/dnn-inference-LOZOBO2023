@@ -59,4 +59,4 @@ def nn_inference(model_arch, weights, data):
 
 if __name__ == "__main__":
     test_softmax()
-    print("Test passed successfully!")
+    #print("Test passed successfully!")
