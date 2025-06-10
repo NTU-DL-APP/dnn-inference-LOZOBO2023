@@ -8,7 +8,7 @@ def relu(x):
 
 def softmax(x):
     """Implement the Softmax activation function with numerical stability."""
-    x = np.asarray(x)  # 確保輸入是 numpy 陣列
+    x = np.asarray(x, dtype=np.float64)  # 使用 float64 提高精度
     if x.ndim == 1:
         x = x.reshape(1, -1)  # 將一維輸入轉為 (1, n)
     e_x = np.exp(x - np.max(x, axis=-1, keepdims=True))
