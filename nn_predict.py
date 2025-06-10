@@ -7,24 +7,17 @@ def relu(x):
     return np.maximum(0, x)
 
 def softmax(x):
-    """Implement the Softmax activation function with numerical stability."""
-    x = np.asarray(x, dtype=np.float64)  # Ensure float64 for precision
+    """Numerically stable softmax."""
+    x = np.asarray(x)
     if x.ndim == 1:
-        x = x.reshape(1, -1)  # Convert 1D to (1, n)
-    
-    # Subtract max for numerical stability
-    max_x = np.max(x, axis=-1, keepdims=True)
-    e_x = np.exp(x - max_x)
-    
-    # Avoid division by zero
-    sum_e_x = np.sum(e_x, axis=-1, keepdims=True)
-    sum_e_x = np.where(sum_e_x == 0, 1e-10, sum_e_x)  # Prevent zero sum
-    
-    out = e_x / sum_e_x
-    
-    if x.ndim == 1:
-        out = out.flatten()  # Convert back to 1D if input was 1D
-    return out
+        x = x - np.max(x)
+        e_x = np.exp(x)
+        return e_x / np.sum(e_x)
+    else:
+        x = x - np.max(x, axis=1, keepdims=True)
+        e_x = np.exp(x)
+        return e_x / np.sum(e_x, axis=1, keepdims=True)
+
 
 # === Flatten ===
 def flatten(x):
